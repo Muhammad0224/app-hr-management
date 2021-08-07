@@ -8,6 +8,8 @@ import uz.pdp.apphrmanagement.model.ApiResponse;
 import uz.pdp.apphrmanagement.model.TaskDto;
 import uz.pdp.apphrmanagement.service.TaskService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(path = "/api/task")
 public class TaskController {
@@ -16,14 +18,14 @@ public class TaskController {
 
     @PreAuthorize("hasRole('DIRECTOR')")
     @PostMapping("/manager")
-    public ResponseEntity<?> createForManager(@RequestBody TaskDto dto){
+    public ResponseEntity<?> createForManager(@Valid @RequestBody TaskDto dto){
         ApiResponse apiResponse = taskService.createForManager(dto);
         return ResponseEntity.status(apiResponse.isStatus() ? 201 : 409).body(apiResponse);
     }
 
     @PreAuthorize("hasAnyRole('DIRECTOR', 'HR_MANAGER')")
     @PostMapping("/worker")
-    public ResponseEntity<?> createForWorker(@RequestBody TaskDto dto){
+    public ResponseEntity<?> createForWorker(@Valid @RequestBody TaskDto dto){
         ApiResponse apiResponse = taskService.createForWorker(dto);
         return ResponseEntity.status(apiResponse.isStatus() ? 201 : 409).body(apiResponse);
     }

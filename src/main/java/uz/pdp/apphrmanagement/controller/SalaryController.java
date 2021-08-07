@@ -8,6 +8,8 @@ import uz.pdp.apphrmanagement.model.ApiResponse;
 import uz.pdp.apphrmanagement.model.SalaryDto;
 import uz.pdp.apphrmanagement.service.SalaryService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/salary")
 public class SalaryController {
@@ -16,7 +18,7 @@ public class SalaryController {
 
     @PreAuthorize("hasAnyRole('DIRECTOR', 'HR_MANAGER')")
     @PostMapping("/pay")
-    public ResponseEntity<?> pay(@RequestBody SalaryDto dto){
+    public ResponseEntity<?> pay(@Valid @RequestBody SalaryDto dto){
         ApiResponse apiResponse = salaryService.pay(dto);
         return ResponseEntity.status(apiResponse.isStatus() ? 200 : 409).body(apiResponse);
     }

@@ -26,14 +26,14 @@ public class EmployeeController {
 
     @PreAuthorize("hasAnyRole('ADMIN', 'DIRECTOR')")
     @PutMapping("/edit/{id}")
-    public ResponseEntity<?> edit(@RequestBody EmployeeDto email, @PathVariable String id) {
+    public ResponseEntity<?> edit(@Valid @RequestBody EmployeeDto email, @PathVariable String id) {
         ApiResponse apiResponse = employeeService.edit(email, id);
         return ResponseEntity.status(apiResponse.isStatus() ? 200 : 401).body(apiResponse);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'DIRECTOR')")
     @PutMapping("/edit")
-    public ResponseEntity<?> editSalary(@RequestBody ChangeSalaryDto dto) {
+    public ResponseEntity<?> editSalary(@Valid @RequestBody ChangeSalaryDto dto) {
         ApiResponse apiResponse = employeeService.editSalary(dto);
         return ResponseEntity.status(apiResponse.isStatus() ? 200 : 401).body(apiResponse);
     }

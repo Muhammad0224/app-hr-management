@@ -33,7 +33,7 @@ public class TourniquetController {
 
     @PreAuthorize("hasAnyRole('ADMIN', 'DIRECTOR')")
     @PatchMapping("/update")
-    public ResponseEntity<?> activate(@RequestBody TourniquetHistoryDto dto) {
+    public ResponseEntity<?> activate(@Valid @RequestBody TourniquetHistoryDto dto) {
         ApiResponse apiResponse = tourniquetService.activate(dto);
         return ResponseEntity.status(apiResponse.isStatus() ? 200 : 409).body(apiResponse);
     }
