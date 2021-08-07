@@ -48,7 +48,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .httpBasic().disable()
                 .authorizeRequests()
-                .antMatchers("/api/employee/login", "/api/hire/verify").permitAll()
+                .antMatchers("/api/employee/login", "/api/hire/verify",
+                        "/api/salary/confirm", "/api/salary/reject",
+                        "/api/task/confirm").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

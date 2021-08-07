@@ -17,10 +17,24 @@ public class HireController {
     @Autowired
     HireService hireService;
 
+//    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/director")
+    public ResponseEntity<?> addDirector(@Valid @RequestBody EmployeeHireDto dto){
+        ApiResponse apiResponse = hireService.addDirector(dto);
+        return ResponseEntity.status(apiResponse.isStatus() ? 201 : 409).body(apiResponse);
+    }
+
     @PreAuthorize("hasAnyRole('ADMIN', 'DIRECTOR')")
     @PostMapping("/manager")
     public ResponseEntity<?> addManager(@Valid @RequestBody EmployeeHireDto dto) {
         ApiResponse apiResponse = hireService.addManager(dto);
+        return ResponseEntity.status(apiResponse.isStatus() ? 201 : 409).body(apiResponse);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'DIRECTOR', 'HR_MANAGER')")
+    @PostMapping("/worker")
+    public ResponseEntity<?> addWorker(@Valid @RequestBody EmployeeHireDto dto) {
+        ApiResponse apiResponse = hireService.addWorker(dto);
         return ResponseEntity.status(apiResponse.isStatus() ? 201 : 409).body(apiResponse);
     }
 

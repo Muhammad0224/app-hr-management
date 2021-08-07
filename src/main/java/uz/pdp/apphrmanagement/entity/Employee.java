@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -20,7 +22,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Employee implements UserDetails {
+@EntityListeners(AuditingEntityListener.class)
+public class Employee implements UserDetails  {
     @Id
     @GeneratedValue
     private UUID id;
@@ -42,12 +45,18 @@ public class Employee implements UserDetails {
     @ManyToOne
     private Company company;
 
+    @CreatedBy
+    private UUID addedBy;
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private Timestamp createdAt;
 
     @UpdateTimestamp
     private Timestamp updatedAt;
+
+    @Column(nullable = false)
+    private Double salary;
 
     private String emailCode;
 

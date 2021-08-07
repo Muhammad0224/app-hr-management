@@ -4,27 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import uz.pdp.apphrmanagement.entity.Task;
+import uz.pdp.apphrmanagement.entity.TourniquetHistory;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Set;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeHireDto {
-    @NotNull
+public class InfoDto {
     private String firstName;
-
-    @NotNull
     private String lastName;
-
-    @NotNull
-    private Double salary;
-
-    @NotNull
-    @Email
     private String email;
-
-    private Integer companyId;
+    private List<Task> tasks;
+    private List<TourniquetHistory> histories;
 }

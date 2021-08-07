@@ -1,8 +1,8 @@
 package uz.pdp.apphrmanagement.entity.enums;
 
 public enum RoleEnum {
-    ADMIN,
-    DIRECTOR,
-    HR_MANAGER,
-    WORKER
+    ROLE_ADMIN,
+    ROLE_DIRECTOR,
+    ROLE_HR_MANAGER,
+    ROLE_WORKER
 }
