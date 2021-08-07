@@ -17,7 +17,7 @@ public class HireController {
     @Autowired
     HireService hireService;
 
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/director")
     public ResponseEntity<?> addDirector(@Valid @RequestBody EmployeeHireDto dto){
         ApiResponse apiResponse = hireService.addDirector(dto);

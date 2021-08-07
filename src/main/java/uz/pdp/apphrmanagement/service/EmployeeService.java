@@ -88,7 +88,7 @@ public class EmployeeService implements UserDetailsService {
         return employeeRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email + " not found"));
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     public ApiResponse edit(EmployeeDto email, String id) {
         Optional<Employee> optionalEmployee = employeeRepository.findById(UUID.fromString(id));
         if (!optionalEmployee.isPresent())
@@ -191,5 +191,15 @@ public class EmployeeService implements UserDetailsService {
         } catch (Exception e) {
             return new ApiResponse("Date parse exception", false);
         }
+    }
+
+    public ApiResponse delete(String email) {
+        Optional<Employee> optionalEmployee = employeeRepository.findByEmail(email);
+        if (!optionalEmployee.isPresent())
+            return new ApiResponse("Employee not found", false);
+        Employee employee = optionalEmployee.get();
+        employee.setEnabled(false);
+        employeeRepository.save(employee);
+        return new ApiResponse("Employee deleted", true);
     }
 }

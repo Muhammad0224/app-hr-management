@@ -49,5 +49,13 @@ public class TourniquetController {
         ApiResponse apiResponse = tourniquetService.exit(dto);
         return ResponseEntity.status(apiResponse.isStatus() ? 200 : 401).body(apiResponse);
     }
+
+    @PreAuthorize("hasRole('DIRECTOR')")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable String id) {
+        ApiResponse apiResponse = tourniquetService.delete(id);
+        return ResponseEntity.status(apiResponse.isStatus() ? 200 : 401).body(apiResponse);
+    }
+
 }
 

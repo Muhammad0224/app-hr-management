@@ -148,4 +148,13 @@ public class TaskService {
 
 
     }
+
+    public ApiResponse delete(String taskCode) {
+        Optional<Task> optionalTask = taskRepository.findByTaskCode(taskCode);
+        if (!optionalTask.isPresent())
+            return new ApiResponse("Task code isn't correct", false);
+        Task task = optionalTask.get();
+        taskRepository.delete(task);
+        return new ApiResponse("Task deleted", true);
+    }
 }

@@ -32,7 +32,7 @@ public class EmployeeController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'DIRECTOR')")
-    @PutMapping("/edit/{email}")
+    @PutMapping("/edit")
     public ResponseEntity<?> editSalary(@RequestBody ChangeSalaryDto dto) {
         ApiResponse apiResponse = employeeService.editSalary(dto);
         return ResponseEntity.status(apiResponse.isStatus() ? 200 : 401).body(apiResponse);
@@ -64,6 +64,13 @@ public class EmployeeController {
     @GetMapping("/task/{email}")
     public ResponseEntity<?> infoTask(@PathVariable String email, @RequestParam String from, @RequestParam String to) {
         ApiResponse apiResponse = employeeService.infoTask(email, from, to);
+        return ResponseEntity.status(apiResponse.isStatus() ? 200 : 401).body(apiResponse);
+    }
+
+    @PreAuthorize("hasRole('DIRECTOR')")
+    @DeleteMapping("/{email}")
+    public ResponseEntity<?> delete(@PathVariable String email) {
+        ApiResponse apiResponse = employeeService.delete(email);
         return ResponseEntity.status(apiResponse.isStatus() ? 200 : 401).body(apiResponse);
     }
 }

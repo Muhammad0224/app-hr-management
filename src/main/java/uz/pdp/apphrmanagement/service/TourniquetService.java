@@ -108,4 +108,15 @@ public class TourniquetService {
         }
         return card;
     }
+
+    public ApiResponse delete(String id) {
+        Optional<TourniquetCard> optionalTourniquetCard =
+                tourniquetRepository.findById(UUID.fromString(id));
+        if (!optionalTourniquetCard.isPresent())
+            return new ApiResponse("Card not found", true);
+        TourniquetCard card = optionalTourniquetCard.get();
+        card.setStatus(false);
+        tourniquetRepository.save(card);
+        return new ApiResponse("Card deleted",true);
+    }
 }

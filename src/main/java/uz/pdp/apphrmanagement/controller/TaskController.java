@@ -41,4 +41,10 @@ public class TaskController {
         return ResponseEntity.status(apiResponse.isStatus() ? 200 : 409).body(apiResponse);
     }
 
+    @PreAuthorize("hasRole('DIRECTOR')")
+    @DeleteMapping("/{taskCode}")
+    public ResponseEntity<?> delete(@PathVariable String taskCode) {
+        ApiResponse apiResponse = taskService.delete(taskCode);
+        return ResponseEntity.status(apiResponse.isStatus() ? 200 : 401).body(apiResponse);
+    }
 }
